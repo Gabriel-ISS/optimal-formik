@@ -1,6 +1,6 @@
 # Optimal Formik
 
-A formik alternative that optimizes for performance
+A formik alternative that optimizes for performance.
 
 # Installation
 
