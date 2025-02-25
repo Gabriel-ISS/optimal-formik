@@ -1,8 +1,3 @@
-# TASKS
-
-- Probar estilizacion completa
-
-
 # Optimal Formik
 
 A formik alternative that optimizes for performance
