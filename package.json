@@ -16,7 +16,7 @@
     "url": "https://github.com/Gabriel-ISS/optimal-formik/issues"
   },
   "homepage": "https://github.com/Gabriel-ISS/optimal-formik#readme",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/optimal-formik.umd.js",
