@@ -50,10 +50,10 @@ function App() {
         <Input name="name" label="Name" />
         <Input type="number" name="age" label="Age" />
         <IterableField<Data["friends"]> name="friends" label="Friends">
-          {({ push, remove, modify, setValue }) => (
+          {({ push, remove, /*modify,*/ setValue }) => (
             <>
               <IterableRenderer<Data["friends"]>>
-                {(path, key) => (
+                {(path, /* key */) => (
                   <>
                     <Input name={path.concat("name")} label="Name" />
                     <Input

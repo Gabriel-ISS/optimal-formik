@@ -16,3 +16,5 @@ export { Path } from '@/helpers/path';
 export { Validator } from '@/validators/Validator'
 export { ZodValidator } from '@/validators/ZodValidator'
 export { YupValidator } from '@/validators/YupValidator'
+
+export { type InputCommon } from '@/helpers.types'
