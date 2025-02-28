@@ -12,10 +12,10 @@ export class YupValidator<T extends AnyObject> extends Validator {
       await this.schema.validate(value, { abortEarly: false });
       return { success: true };
     } catch (e) {
-      if (!(e instanceof ValidationError)) throw e;
+      if (Object.getPrototypeOf(e) === Error.prototype) throw e;
       return {
         success: false,
-        errors: e.inner.map(err => ({
+        errors: (e as ValidationError).inner.map(err => ({
           path: err.path?.split('.'),
           message: err.message
         }))
@@ -28,11 +28,23 @@ export class YupValidator<T extends AnyObject> extends Validator {
       this.schema.validateSyncAt(path, value);
       return { success: true };
     } catch (e) {
-      if (!(e instanceof ValidationError)) throw e;
+      if (Object.getPrototypeOf(e) === Error.prototype) throw e;
+
+      const err = e as ValidationError
+
+      if (err.inner.length == 0) {
+        return {
+          success: false,
+          errors: [{
+            path: err.path?.split('.'),
+            message: err.message
+          }]
+        }
+      }
 
       return {
         success: false,
-        errors: e.inner.map(err => ({
+        errors: err.inner.map(err => ({
           path: err.path?.split('.'),
           message: err.message
         }))
