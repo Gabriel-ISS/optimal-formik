@@ -4,9 +4,11 @@ import {
   Input,
   IterableField,
   IterableRenderer,
+  /* YupValidator, */
 } from "@/main.ts";
 import { ZodValidator } from '@/validators/ZodValidator';
 import { z } from "zod";
+//import * as yup from 'yup'
 
 const validationSchema = z.object({
   name: z.string().min(3),
@@ -22,6 +24,26 @@ const validationSchema = z.object({
 const formValidator = new ZodValidator(validationSchema)
 
 type Data = z.infer<typeof validationSchema>;
+
+/* type Data = {
+  name: string,
+  age: number,
+  friends: {
+    name: string,
+    age?: number
+  }[]
+}
+
+const validationSchema: yup.ObjectSchema<Data> = yup.object({
+  name: yup.string().min(3).required(),
+  age: yup.number().min(18).required(),
+  friends: yup.array(yup.object({
+    name: yup.string().min(3).required(),
+    age: yup.number().min(18)
+  })).required()
+})
+
+const formValidator = new YupValidator(validationSchema) */
 
 const initialValues: Data = {
   name: "John",

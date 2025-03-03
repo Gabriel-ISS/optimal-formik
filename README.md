@@ -9,9 +9,16 @@ npm install optimal-formik
 ```
 
 # Usage
+
 ```tsx
-import { OptimalFormik, Input, IterableField, IterableRenderer, ZodValidator } from 'optimal-formik';
-import { z } from 'zod';
+import {
+  OptimalFormik,
+  Input,
+  IterableField,
+  IterableRenderer,
+  ZodValidator,
+} from "optimal-formik";
+import { z } from "zod";
 
 const validationSchema = z.object({
   name: z.string().min(3),
@@ -24,7 +31,7 @@ const validationSchema = z.object({
   ),
 });
 
-const formValidator = new ZodValidator(validationSchema)
+const formValidator = new ZodValidator(validationSchema);
 
 type Data = z.infer<typeof validationSchema>;
 
@@ -80,7 +87,9 @@ function App() {
               >
                 Add Friend
               </button>
-              <button onClick={() => setValue(initialValues.friends)}>Reset</button>
+              <button onClick={() => setValue(initialValues.friends)}>
+                Reset
+              </button>
             </>
           )}
         </IterableField>
@@ -98,58 +107,54 @@ export default App;
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| `formID (required)` | `string` | Unique ID of the form. |
-| `initialValues (required)` | `Record<string, any>` | Initial values of the form. |
-| `onSubmit (required)` | `(data: Record<string, any>) => void` | function that is executed when the submit button is pressed |
-| `validator` | `Validator` | Can be `ZodValidator`, `YupValidator` or a custom child of [`Validator`](#validator-abstract-class) |
-| `preventSubmitOnEnter` | `boolean` | Prevent submit on Enter pressed |
-| `className` | `string` | ... |
-
-
+| Prop                       | Type                                  | Description                                                                                         |
+| -------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `formID (required)`        | `string`                              | Unique ID of the form.                                                                              |
+| `initialValues (required)` | `Record<string, any>`                 | Initial values of the form.                                                                         |
+| `onSubmit (required)`      | `(data: Record<string, any>) => void` | function that is executed when the submit button is pressed                                         |
+| `validator`                | `Validator`                           | Can be `ZodValidator`, `YupValidator` or a custom child of [`Validator`](#validator-abstract-class) |
+| `preventSubmitOnEnter`     | `boolean`                             | Prevent submit on Enter pressed                                                                     |
+| `className`                | `string`                              | ...                                                                                                 |
 
 ## Primary components (with `Label` and `ErrorMessage`)
 
 Every element with `Label` has these props available:
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| `name (required)` | `string \| Path` | Path to the field |
-| `label (required)` | `string \| React.JSX.Element` | Label of the field |
-| `hideLabel` | `boolean` | Hides the fields label |
-| `containerClass` | `string` | Class name of input's container |
-| `labelClass` | `string` | Class name of input's label |
-| `errorClass` | `string` | Class name of `ErrorMessage` |
+| Prop               | Type                          | Description                     |
+| ------------------ | ----------------------------- | ------------------------------- |
+| `name (required)`  | `string \| Path`              | Path to the field               |
+| `label (required)` | `string \| React.JSX.Element` | Label of the field              |
+| `hideLabel`        | `boolean`                     | Hides the fields label          |
+| `containerClass`   | `string`                      | Class name of input's container |
+| `labelClass`       | `string`                      | Class name of input's label     |
+| `errorClass`       | `string`                      | Class name of `ErrorMessage`    |
 
 ### `<Input>`
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| Common props | ... | See in the [start of this section](#primary-components-with-label-and-errormessage) |
-| Element props | `HTMLInputProps` | ... |
+| Prop          | Type             | Description                                                                         |
+| ------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| Common props  | ...              | See in the [start of this section](#primary-components-with-label-and-errormessage) |
+| Element props | `HTMLInputProps` | ...                                                                                 |
 
 ### `<Select>`
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| Common props | ... | See in the [start of this section](#primary-components-with-label-and-errormessage) |
-| Element props | `HTMLSelectProps` | ... |
-
+| Prop          | Type              | Description                                                                         |
+| ------------- | ----------------- | ----------------------------------------------------------------------------------- |
+| Common props  | ...               | See in the [start of this section](#primary-components-with-label-and-errormessage) |
+| Element props | `HTMLSelectProps` | ...                                                                                 |
 
 ### `<TextArea>`
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| Common props | ... | See in the [start of this section](#primary-components-with-label-and-errormessage) |
-| Element props | `HTMLTextAreaProps` | ... |
-
+| Prop          | Type                | Description                                                                         |
+| ------------- | ------------------- | ----------------------------------------------------------------------------------- |
+| Common props  | ...                 | See in the [start of this section](#primary-components-with-label-and-errormessage) |
+| Element props | `HTMLTextAreaProps` | ...                                                                                 |
 
 ### `<CheckboxInput>`
 
@@ -157,21 +162,20 @@ Every element with `Label` has these props available:
 
 `hideLabel` is not available here
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| Common props | ... | See in the [start of this section](#primary-components-with-label-and-errormessage) |
-| Element props | `HTMLInputElement` | ... |
-
+| Prop          | Type               | Description                                                                         |
+| ------------- | ------------------ | ----------------------------------------------------------------------------------- |
+| Common props  | ...                | See in the [start of this section](#primary-components-with-label-and-errormessage) |
+| Element props | `HTMLInputElement` | ...                                                                                 |
 
 ### `<IterableField>`
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| Common props | ... | See in the [start of this section](#primary-components-with-label-and-errormessage) |
+| Prop                  | Type                                     | Description                                                                                      |
+| --------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Common props          | ...                                      | See in the [start of this section](#primary-components-with-label-and-errormessage)              |
 | `children (required)` | `(...helpers: ...) => React.JSX.Element` | The children is a function providing useful functions `helpers` to manipulate array and objects. |
-| Element props | `HTMLDivProps` | ... |
+| Element props         | `HTMLDivProps`                           | ...                                                                                              |
 
 ##### Children Helpers
 
@@ -192,7 +196,6 @@ Where `E` is an element of `A`, `A` is the iterable itself, and `Path` is a clas
   setValue(value: A): void;
 ```
 
-
 ## Primary components
 
 ### `<IterableRenderer>`
@@ -201,12 +204,11 @@ This component don't have `Label` and `ErrorMessage` but alway is a child of `It
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| `as (default: div)` | `keyof React.JSX.IntrinsicElements` | Tag name of this component  |
-| `className` | `string` | Class of this component |
+| Prop                  | Type                                                          | Description                                                                                                                                         |
+| --------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `as (default: div)`   | `keyof React.JSX.IntrinsicElements`                           | Tag name of this component                                                                                                                          |
+| `className`           | `string`                                                      | Class of this component                                                                                                                             |
 | `children (required)` | `(path: Path<E>, key: string \| number) => React.JSX.Element` | The children is a function providing the `path` of the array or object and the `key`. The `key` can be the index of the array or key of the object. |
-
 
 ### `<SubmitButton>`
 
@@ -224,13 +226,12 @@ Label with `ErrorMessage`
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| `name (required)` | `string \| Path` | Path to the field |
-| `children (required)` | `string \| React.JSX.Element` | Label of the field |
-| `hideLabel` | `boolean` | Hides the fields label |
-| `...` | `HTMLLabelProps` | ... |
-
+| Prop                  | Type                          | Description            |
+| --------------------- | ----------------------------- | ---------------------- |
+| `name (required)`     | `string \| Path`              | Path to the field      |
+| `children (required)` | `string \| React.JSX.Element` | Label of the field     |
+| `hideLabel`           | `boolean`                     | Hides the fields label |
+| `...`                 | `HTMLLabelProps`              | ...                    |
 
 ### `<ErrorMessage>`
 
@@ -238,10 +239,10 @@ Show an error if exist
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
+| Prop              | Type             | Description       |
+| ----------------- | ---------------- | ----------------- |
 | `name (required)` | `string \| Path` | Path to the field |
-| Element props | `HTMLDivProps` | ... |
+| Element props     | `HTMLDivProps`   | ...               |
 
 ### `<RedDot>`
 
@@ -250,10 +251,10 @@ Useful to show if there are errors in hidden sub-fields.
 
 #### Props
 
-| Prop | Type | Description |
-| --- | --- | --- |
+| Prop              | Type             | Description       |
+| ----------------- | ---------------- | ----------------- |
 | `name (required)` | `string \| Path` | Path to the field |
-| Element props | `HTMLDivProps` | ... |
+| Element props     | `HTMLDivProps`   | ...               |
 
 ## Helpers
 
@@ -263,9 +264,9 @@ Useful to show if there are errors in hidden sub-fields.
 class Path {
   constructor(key: string | number, path = "") {}
 
-  concat(key: string | number): Path
+  concat(key: string | number): Path;
 
-  toString(): string
+  toString(): string;
 }
 ```
 
@@ -276,15 +277,17 @@ Useful if you don't use `yup` or `zod` as validation schema.
 Obs: In both cases `value` will be the form current data
 
 ```ts
-type ValidationResult = {
-  success: true;
-} | {
-  success: false;
-  errors: {
-    path?: (string | number)[];
-    message: string;
-  }[];
-}
+type ValidationResult =
+  | {
+      success: true;
+    }
+  | {
+      success: false;
+      errors: {
+        path?: (string | number)[];
+        message: string;
+      }[];
+    };
 
 abstract class Validator {
   constructor(protected schema: any) {}
@@ -313,11 +316,16 @@ class CustomValidator extends Validator {
 }
 ```
 
+### React Context
+
+- If you want to get FormID without `useFormID` or `useForm`, you can use `OptimalFormikContext`.
+- If you want to get the current path generated by IterableField you can use `PathContext`.
+
 # Hooks
 
 ## useFormID
 
-Retrieves the current form ID from the OptimalFormik context.
+Retrieves the current form ID from the `OptimalFormikContext`.
 This ID is defined in the parent OptimalFormik and is used to identify the form.
 
 ## useForm
@@ -339,7 +347,6 @@ type FormBasicData<T> = {
   isSubmitting?: boolean;
 };
 
-
 type Form<T extends AnyObject> = FormBasicData<T> & {
   config: FormConfig<T>;
   updateForm(updater: Updater<FormBasicData<T>>): void;
@@ -352,15 +359,17 @@ type Form<T extends AnyObject> = FormBasicData<T> & {
 type MyForm = {
   title: string
   description: string
-  counter1: number
-  counter2: number
+  counters: {
+    counter1: number
+    counter2: number
+  }
 }
 
-// s type Form
-const updateForm = useForm(s => s.updateForm)
-const { initialCounter1, initialCounter2 } = useForm((s: MyForm) => ({
-  initialCounter1: s.config.initialValues.counter1
-  initialCounter2: s.config.initialValues.counter2
+const updateForm = useForm((s: Form<MyForm>) => s.updateForm)
+const { data, error, touched } = useForm((s: Form<MyForm>) => ({
+  data: s.data.counter1
+  error: s.errors['counters.counter1']
+  touched: s.touched['counters.counter1']
 }))
 ```
 
@@ -379,35 +388,40 @@ enum FieldDataType {
 type InputProps<T> = {
   value: T | undefined;
   checked: T | undefined;
-  onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+  onChange: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >;
   onBlur: FocusEventHandler;
-}
+};
 
 type Meta<T> = {
   data: T;
   error: string | undefined;
   touched: boolean | undefined;
   initialValue: T | null;
-}
+};
 
 type Helpers<T> = {
   setValue: (value: T) => void;
   setError: (error: string | undefined) => void;
   setTouched: (touched: boolean) => void;
   validate: () => void;
-}
+};
 
 // T is the type of the data and F the type of the form
-type useField<T, F> = (path: Path<F> | string, type?: FieldDataType) => [InputProps<T>, Meta<T>, Helpers<T>]
+type useField<T, F> = (
+  path: Path<F> | string,
+  type?: FieldDataType
+) => [InputProps<T>, Meta<T>, Helpers<T>];
 ```
 
 ## useFieldErrorData
 
 ```ts
 type useFieldErrorData = (path: Path<AnyObject> | string) => {
-  error?: string
-  touched?: boolean
-}
+  error?: string;
+  touched?: boolean;
+};
 ```
 
 ## useEmbedErrorsCheck
@@ -415,5 +429,5 @@ type useFieldErrorData = (path: Path<AnyObject> | string) => {
 Returns true if some error is inside the selected path.
 
 ```ts
-type useEmbedErrorsCheck = (path: Path<AnyObject> | string) => boolean
+type useEmbedErrorsCheck = (path: Path<AnyObject> | string) => boolean;
 ```
