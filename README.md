@@ -358,7 +358,7 @@ type MyForm = {
 
 // s type Form
 const updateForm = useForm(s => s.updateForm)
-const { initialCounter1, initialCounter2 } = useForm<MyForm>(s => ({
+const { initialCounter1, initialCounter2 } = useForm((s: MyForm) => ({
   initialCounter1: s.config.initialValues.counter1
   initialCounter2: s.config.initialValues.counter2
 }))

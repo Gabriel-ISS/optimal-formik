@@ -49,7 +49,7 @@ export type FieldDataTypeU = "string" | "number" | "boolean";
 /**
  * Used to obtain data and functions related to a specified field
  * @param path path to the field, can use a simple string, but if it is an embedded value, you must use the Path class
- * @param  {FieldDataType} type field type. By default string. You can import FieldDataType and use here as a good practice
+ * @param type field type. By default string. You can import FieldDataType and use here as a good practice
  * @returns [fieldProps, meta, helpers] where fieldProps is an object with the HTML element properties, meta contains data related to the field (data, error, touched, initialValue), and helpers is an object with functions to manipulate the field (setValue, setError, setTouched, validate).
  */
 export function useField<T>(
