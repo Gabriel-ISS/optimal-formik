@@ -3,7 +3,7 @@ import { AnyObject, ObjectSchema, ValidationError } from 'yup';
 
 
 export class YupValidator<T extends AnyObject> extends Validator {
-  constructor(protected schema: ObjectSchema<T>) {
+  constructor(protected schema: Pick<ObjectSchema<T>, 'validate' | 'validateSyncAt'>) {
     super(schema);
   }
 
