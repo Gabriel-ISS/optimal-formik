@@ -29,12 +29,12 @@ type Getter<T, R> = (data: T) => R;
  * @param getter function that receives the form and returns the desired value
  * @returns the same value returned by the getter function
  */
-export function useForm<T extends AnyObject = AnyObject, R = unknown>(
-  getter: Getter<Form<T>, R>
+export function useForm<R = unknown>(
+  getter: Getter<Form<AnyObject>, R>
 ) {
   const formID = useFormID();
   return useOptimalFormik(
-    useShallow((s) => getter(s.forms[formID] as Form<T>))
+    useShallow((s) => getter(s.forms[formID] as Form<AnyObject>))
   );
 }
 
