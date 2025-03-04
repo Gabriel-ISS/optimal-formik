@@ -4,6 +4,7 @@ import {
   Input,
   IterableField,
   IterableRenderer,
+  SubmitButton,
   /* YupValidator, */
 } from "@/main.ts";
 import { ZodValidator } from '@/validators/ZodValidator';
@@ -18,7 +19,7 @@ const validationSchema = z.object({
       name: z.string().min(3),
       age: z.number().min(18).optional(),
     })
-  ),
+  ).min(1),
 });
 
 const formValidator = new ZodValidator(validationSchema)
@@ -46,16 +47,9 @@ const validationSchema: yup.ObjectSchema<Data> = yup.object({
 const formValidator = new YupValidator(validationSchema) */
 
 const initialValues: Data = {
-  name: "John",
-  age: 30,
-  friends: [
-    {
-      name: "Jane",
-    },
-    {
-      name: "Bob",
-    },
-  ],
+  name: "",
+  age: 0,
+  friends: [],
 };
 
 function App() {
@@ -101,6 +95,9 @@ function App() {
             </>
           )}
         </IterableField>
+        <SubmitButton>
+          Probar
+        </SubmitButton>
       </OptimalFormik>
     </>
   );

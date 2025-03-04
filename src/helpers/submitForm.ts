@@ -1,63 +1,67 @@
-import { FormNotFoundError } from '@/helpers/errors';
-import { useOptimalFormik } from '@/store';
+import { FormNotFoundError } from "@/helpers/errors";
+import { Validator } from "@/main";
+import { useOptimalFormik } from "@/store";
 import { FormEvent } from "react";
-import { ValidationError } from "yup";
-import { ZodError } from "zod";
 
-function getValidPath(path: string) {
-  return path.replace(/\[(\d+)\]/g, (_, index) => `.${index}`);
+function getValidPath(path: (string | number)[]) {
+  return path.join(".");
+  //return path.replace(/\[(\d+)\]/g, (_, index) => `.${index}`);
 }
 
 export async function submitForm(e: FormEvent, formID: string) {
   e.preventDefault();
   const state = useOptimalFormik.getState();
   const form = state.forms[formID];
-  if (!form) throw new Error("Form not found");
+  if (!form) throw new FormNotFoundError(formID);
   const updateForm = form.updateForm;
 
+  const { validator, onSubmit: submit } = form.config;
+
+  /** valida y actualiza los errores
+   * @returns true si no hay errores
+   */
+  const validate = async (validator: Validator) => {
+    const validationResult = await validator.validate(form.data);
+
+    if (!validationResult.success) {
+      updateForm((form) => {
+        validationResult.errors.forEach(({ path, message }) => {
+          if (!path) return;
+
+          const validPath = getValidPath(path);
+          if (!(validPath in form.errors)) {
+            form.errors[validPath] = message;
+            form.touched[validPath] = true;
+          }
+        });
+      });
+    }
+
+    return validationResult.success;
+  };
+
+  if (validator) {
+    updateForm((s) => {
+      s.isValidating = true;
+    });
+
+    const success = await validate(validator);
+    if (!success) {
+      updateForm((s) => {
+        s.isValidating = false;
+      });
+      return;
+    };
+  }
+
   updateForm((s) => {
-    s.isValidating = true;
+    s.isValidating = false;
+    s.isSubmitting = true;
   });
 
-  const formConfig = form.config;
-  try {
-    if (formConfig.validator) {
-      await formConfig.validator.validate(form.data);
-    }
+  await submit(form.data);
 
-    updateForm((s) => {
-      s.isValidating = false;
-      s.isSubmitting = true;
-    });
-
-    await formConfig.onSubmit(form.data);
-
-    try {
-      updateForm((s) => {
-        s.isSubmitting = false;
-      });
-    } catch (error) {
-      if (!(error instanceof FormNotFoundError)) {
-        throw error;
-      }
-    }
-  } catch (error) {
-    if (!(error instanceof ValidationError) || !(error instanceof ZodError)) {
-      throw error;
-    }
-
-    updateForm((form) => {
-      error.inner.forEach(({ path, message }) => {
-        const validPath = getValidPath(path as string);
-        if (!(validPath in form.errors)) {
-          form.errors[validPath] = message;
-          form.touched[validPath] = true;
-        }
-      });
-    });
-
-    updateForm((s) => {
-      s.isValidating = false;
-    });
-  }
+  updateForm((s) => {
+    s.isSubmitting = false;
+  });
 }
