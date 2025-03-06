@@ -1,5 +1,5 @@
 export { CheckboxInput } from "@/components/CheckboxInput";
-export { ErrorMessage as CustomErrorMessage } from "@/components/ErrorMessage";
+export { ErrorMessage } from "@/components/ErrorMessage";
 export { Input } from "@/components/Input";
 export { IterableField } from "@/components/IterableField";
 export { IterableRenderer } from "@/components/IterableRenderer";
@@ -21,3 +21,4 @@ export { YupValidator } from "@/validators/YupValidator";
 
 export { type InputCommon } from "@/helpers.types";
 export { type Form } from '@/store'
+export { FieldDataType, type FieldDataTypeU } from '@/hooks'

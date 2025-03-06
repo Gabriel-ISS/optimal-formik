@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "name": "optimal-formik",
   "description": "A formik alternative that optimizes for performance",
   "repository": {
@@ -32,6 +32,7 @@
   "scripts": {
     "dev": "vite --config vite.sandbox.config.ts",
     "build": "tsc -b && vite build",
+    "prepublish": "pnpm run build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
